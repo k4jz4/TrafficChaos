@@ -102,5 +102,4 @@ class TrafficLight {
       return false;
     }
   }
-
 }
