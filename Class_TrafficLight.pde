@@ -63,7 +63,6 @@ class TrafficLight {
     }
   }
 
-
   void renderTrafficLight(boolean redOn, boolean yellowOn, boolean greenOn) {
     
     color black = color(0);
@@ -120,7 +119,6 @@ void renderWalkSignal(boolean walk) {
   }
 }
 
-
 void renderButton(boolean buttonOn) {
   color black = color(0);
   color buttonOffColor = color(54, 74, 183);
@@ -138,7 +136,6 @@ void renderButton(boolean buttonOn) {
 }
 
   boolean buttonPressed() {
-    // Returns true if the button is pressed, false otherwise
     if (mousePressed && sqrt(sq(mouseX-(xpos+350))+sq(mouseY-(ypos+450))) < 18) {
       return true;
     } else {
