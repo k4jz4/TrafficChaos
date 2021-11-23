@@ -3,21 +3,23 @@ class TrafficLight {
   String state; 
   int stateTimer;
   float xpos, ypos;
+  boolean buttonOn;
 
   TrafficLight(float _xpos, float _ypos) {
     xpos = _xpos;
     ypos = _ypos;
     state = "RED";
     stateTimer = millis();
+    buttonOn = false;
   }
 
   void render(boolean lightsR, boolean lightsY, boolean lightsG, boolean walkOn) {
-    
+
     pushMatrix();
     translate(xpos, ypos);
     renderTrafficLight(lightsR, lightsY, lightsG);
     renderWalkSignal(walkOn);
-    renderButton(true);
+    renderButton(buttonOn);
     popMatrix();
   }
 
@@ -60,18 +62,22 @@ class TrafficLight {
 
     if (buttonPressed()) {
       state = "RED";
+      buttonOn = true;
+    } else {
+      buttonOn = false;
     }
   }
 
   void renderTrafficLight(boolean redOn, boolean yellowOn, boolean greenOn) {
-    
+
     color black = color(0);
     color redLight = color(255, 0, 0);
     color yellowLight = color(255, 255, 0);
     color greenLight = color(0, 255, 0);
     color offLight = color(200);
 
-
+    fill(70, 70, 70);
+    rect (145, 90, 10, 600);
     fill(black);
     rect(100, 100, 100, 300);
 
@@ -98,45 +104,47 @@ class TrafficLight {
     ellipse(150, 350, 75, 75);
   }
 
-void renderWalkSignal(boolean walk) {
+  void renderWalkSignal(boolean walk) {
 
-  color black = color(0);
-  color offLight = color(75);
+    color black = color(0);
+    color offLight = color(75);
 
-  fill(black);
-  rect(300, 0, 100, 200);
+    fill(70, 70, 70);
+    rect(345, -10, 10, 600);
+    fill(black);
+    rect(300, 0, 100, 200);
 
-  fill (offLight);
-  ellipse(350, 50, 75, 75);
-  ellipse(350, 150, 75, 75);
+    fill (offLight);
+    ellipse(350, 50, 75, 75);
+    ellipse(350, 150, 75, 75);
 
-  if (walk) {
-    greenMan = loadImage("GreenMan.png");
-    image(greenMan, 305, 0, 100, 100);
-  } else {
-    redMan = loadImage ("RedMan.png");
-    image(redMan, 275, 55, 300, 300);
+    if (walk) {
+      greenMan = loadImage("GreenMan.png");
+      image(greenMan, 305, 0, 100, 100);
+    } else {
+      redMan = loadImage("RedMan.png");
+      image(redMan, 275, 55, 300, 300);
+    }
   }
-}
 
-void renderButton(boolean buttonOn) {
-  color black = color(0);
-  color buttonOffColor = color(54, 74, 183);
-  color buttonOnColor = color(182, 179, 203);
+  void renderButton(boolean buttonOn) {
+    color black = color(0);
+    color buttonOnColor = color(182, 179, 203);
+    color buttonOffColor = color(54, 74, 183);
 
-  fill(black);
-  rect(300, 400, 100, 100);
+    fill(black);
+    rect(300, 250, 100, 100);
 
-  if (buttonOn) {
-    fill(buttonOnColor);
-  } else {
-    fill(buttonOffColor);
+    if (buttonOn) {
+      fill(buttonOnColor);
+    } else {
+      fill(buttonOffColor);
+    }
+    ellipse(350, 300, 36, 36);
   }
-  ellipse(350, 450, 36, 36);
-}
 
   boolean buttonPressed() {
-    if (mousePressed && sqrt(sq(mouseX-(xpos+350))+sq(mouseY-(ypos+450))) < 18) {
+    if (mousePressed && sqrt(sq(mouseX-(xpos+350))+sq(mouseY-(ypos+300))) < 18) {
       return true;
     } else {
       return false;
